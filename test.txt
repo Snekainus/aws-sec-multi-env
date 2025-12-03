@@ -1,0 +1,3 @@
+# aws-sec-multi-env
+
+Initial commit for multi-environment AWS security project.
