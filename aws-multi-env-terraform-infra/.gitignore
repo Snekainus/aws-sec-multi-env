@@ -1,3 +1,7 @@
+# Ignore ALL .terraform folders anywhere
+**/.terraform/
+**/.terraform/*
+
 # Terraform files
 *.tfstate
 *.tfstate.*
