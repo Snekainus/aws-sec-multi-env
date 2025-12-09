@@ -13,8 +13,8 @@ phases:
       - unzip terraform.zip && mv terraform /usr/local/bin/
   pre_build:
     commands:
-      - echo "Entering envs/$ENV_NAME"
-      - cd envs/$ENV_NAME
+      - echo "Entering aws-multi-env-terraform-infra/envs/$ENV_NAME"
+      - cd aws-multi-env-terraform-infra/envs/$ENV_NAME
       - terraform init -input=false \
           -backend-config="bucket=tfstate-web-aws-multi-env" \
           -backend-config="dynamodb_table=terraform-locks" \
