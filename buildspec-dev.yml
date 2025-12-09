@@ -15,11 +15,7 @@ phases:
     commands:
       - echo "Entering aws-multi-env-terraform-infra/envs/$ENV_NAME"
       - cd aws-multi-env-terraform-infra/envs/$ENV_NAME
-      - terraform init -input=false \
-          -backend-config="bucket=tfstate-web-aws-multi-env" \
-          -backend-config="dynamodb_table=terraform-locks" \
-          -backend-config="key=$ENV_NAME/terraform.tfstate" \
-          -backend-config="region=us-east-1"
+      - terraform init -input=false -backend-config="bucket=tfstate-web-aws-multi-env" -backend-config="dynamodb_table=terraform-locks" -backend-config="key=$ENV_NAME/terraform.tfstate" -backend-config="region=us-east-1"
   build:
     commands:
       - terraform plan -input=false -out=tfplan
