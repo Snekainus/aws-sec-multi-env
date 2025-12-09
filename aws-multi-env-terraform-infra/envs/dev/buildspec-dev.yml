@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    TF_IN_AUTOMATION: "true"
+    ENV_NAME: "dev"
+
+phases:
+  install:
+    commands:
+      - echo Installing Terraform...
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0_linux_amd64.zip
+      - unzip terraform.zip && mv terraform /usr/local/bin/
+  pre_build:
+    commands:
+      - echo "Entering envs/$ENV_NAME"
+      - cd envs/$ENV_NAME
+      - terraform init -input=false \
+          -backend-config="bucket=tfstate-web-aws-multi-env" \
+          -backend-config="dynamodb_table=terraform-locks" \
+          -backend-config="key=$ENV_NAME/terraform.tfstate" \
+          -backend-config="region=us-east-1"
+  build:
+    commands:
+      - terraform plan -input=false -out=tfplan
+  post_build:
+    commands:
+      - terraform apply -input=false -auto-approve tfplan
